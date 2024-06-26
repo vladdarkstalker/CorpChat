@@ -8,6 +8,7 @@ class CorpChatApplicationTests {
 
 	@Test
 	void contextLoads() {
+
 	}
 
 }
