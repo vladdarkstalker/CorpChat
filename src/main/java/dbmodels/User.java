@@ -11,7 +11,9 @@ import java.util.List;
  * The `users` table stores information about users.
  * Structure:
  *      `id`: A unique user ID (Primary Key).
- *      `username`: A unique username.
+ *      `first_name`: Name.
+ *      `last_name`: Lastname.
+ *      `middle_name`: Middlename.
  *      `password`: The user's password.
  *      `email`: The user's unique email address.
  *      `created_at`: The date and time the user was created.
@@ -25,8 +27,14 @@ public class User {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
 
-    @Column(name = "username", unique = true, nullable = false)
-    private String username;
+    @Column(name = "first_name")
+    private String firstName;
+
+    @Column(name = "last_name")
+    private String lastName;
+
+    @Column(name = "middle_name")
+    private String middleName;
 
     @Column(name = "password", nullable = false)
     private String password;
@@ -39,10 +47,12 @@ public class User {
 
     public User() {}
 
-    public User(String username, String password, String email, Timestamp createdAt) {
-        this.username = username;
+    public User(String username, String password, String email, String firstName, String lastName, String middleName, Timestamp createdAt) {
         this.password = password;
         this.email = email;
+        this.firstName = firstName;
+        this.lastName = lastName;
+        this.middleName = middleName;
         this.createdAt = createdAt;
     }
 
@@ -54,12 +64,28 @@ public class User {
         this.id = id;
     }
 
-    public String getUsername() {
-        return username;
+    public String getFirstName() {
+        return firstName;
     }
 
-    public void setUsername(String username) {
-        this.username = username;
+    public void setFirstName(String firstName) {
+        this.firstName = firstName;
+    }
+
+    public String getLastName() {
+        return lastName;
+    }
+
+    public void setLastName(String lastName) {
+        this.lastName = lastName;
+    }
+
+    public String getMiddleName() {
+        return middleName;
+    }
+
+    public void setMiddleName(String middleName) {
+        this.middleName = middleName;
     }
 
     public String getPassword() {
@@ -90,9 +116,11 @@ public class User {
     public String toString() {
         return "User{" +
                 "id=" + id +
-                ", username='" + username + '\'' +
                 ", password='" + password + '\'' +
                 ", email='" + email + '\'' +
+                ", firstName='" + firstName + '\'' +
+                ", lastName='" + lastName + '\'' +
+                ", middleName='" + middleName + '\'' +
                 ", createdAt=" + createdAt +
                 '}';
     }
@@ -102,11 +130,11 @@ public class User {
 //        if (this == o) return true;
 //        if (o == null || getClass() != o.getClass()) return false;
 //        User user = (User) o;
-//        return id == user.id && Objects.equals(username, user.username) && Objects.equals(password, user.password) && Objects.equals(email, user.email) && Objects.equals(createdAt, user.createdAt);
+//        return id == user.id && Objects.equals(username, user.username) && Objects.equals(password, user.password) && Objects.equals(email, user.email) && Objects.equals(firstName, user.firstName) && Objects.equals(lastName, user.lastName) && Objects.equals(middleName, user.middleName) && Objects.equals(createdAt, user.createdAt);
 //    }
 
 //    @Override
 //    public int hashCode() {
-//        return Objects.hash(id, username, password, email, createdAt);
+//        return Objects.hash(id, username, password, email, firstName, lastName, middleName, createdAt);
 //    }
 }
