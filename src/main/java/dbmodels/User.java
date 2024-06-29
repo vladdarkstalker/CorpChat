@@ -11,6 +11,7 @@ import java.util.List;
  * The `users` table stores information about users.
  * Structure:
  *      `id`: A unique user ID (Primary Key).
+ *      `login`: Login to log in.
  *      `first_name`: Name.
  *      `last_name`: Lastname.
  *      `middle_name`: Middlename.
@@ -26,6 +27,9 @@ public class User {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
+
+    @Column(name = "login", unique = true, nullable = false)
+    private String login;
 
     @Column(name = "first_name")
     private String firstName;
@@ -47,13 +51,22 @@ public class User {
 
     public User() {}
 
-    public User(String username, String password, String email, String firstName, String lastName, String middleName, Timestamp createdAt) {
+    public User(String login, String password, String email, String firstName, String lastName, String middleName, Timestamp createdAt) {
+        this.login = login;
         this.password = password;
         this.email = email;
         this.firstName = firstName;
         this.lastName = lastName;
         this.middleName = middleName;
         this.createdAt = createdAt;
+    }
+
+    public String getLogin() {
+        return login;
+    }
+
+    public void setLogin(String login) {
+        this.login = login;
     }
 
     public int getId() {
@@ -116,6 +129,7 @@ public class User {
     public String toString() {
         return "User{" +
                 "id=" + id +
+                ", login='" + login + '\'' +
                 ", password='" + password + '\'' +
                 ", email='" + email + '\'' +
                 ", firstName='" + firstName + '\'' +
@@ -130,11 +144,11 @@ public class User {
 //        if (this == o) return true;
 //        if (o == null || getClass() != o.getClass()) return false;
 //        User user = (User) o;
-//        return id == user.id && Objects.equals(username, user.username) && Objects.equals(password, user.password) && Objects.equals(email, user.email) && Objects.equals(firstName, user.firstName) && Objects.equals(lastName, user.lastName) && Objects.equals(middleName, user.middleName) && Objects.equals(createdAt, user.createdAt);
+//        return id == user.id && Objects.equals(login, user.login) && Objects.equals(username, user.username) && Objects.equals(password, user.password) && Objects.equals(email, user.email) && Objects.equals(firstName, user.firstName) && Objects.equals(lastName, user.lastName) && Objects.equals(middleName, user.middleName) && Objects.equals(createdAt, user.createdAt);
 //    }
 
 //    @Override
 //    public int hashCode() {
-//        return Objects.hash(id, username, password, email, firstName, lastName, middleName, createdAt);
+//        return Objects.hash(id, login, username, password, email, firstName, lastName, middleName, createdAt);
 //    }
 }

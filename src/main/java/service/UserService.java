@@ -22,6 +22,22 @@ public class UserService {
         return userRepository.findById(id);
     }
 
+    public List<User> getUsersByLogin(String login) {
+        return userRepository.findByLogin(login);
+    }
+
+    public List<User> getUsersByMiddleName(String middleName) {
+        return userRepository.findByMiddleName(middleName);
+    }
+
+    public List<User> getUsersByLastName(String lastName) {
+        return userRepository.findByLastName(lastName);
+    }
+
+    public List<User> getUsersByFirstName(String firstName) {
+        return userRepository.findByFirstName(firstName);
+    }
+
     public List<User> getUsersByEmail(String email) {
         return userRepository.findByEmail(email);
     }

@@ -3,13 +3,15 @@ package controller;
 import dbmodels.User;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
+import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import service.UserService;
 
 import java.util.List;
 import java.util.Optional;
 
-@RestController
+@Controller
 @RequestMapping("/users")
 public class UserController {
 
@@ -17,8 +19,10 @@ public class UserController {
     private UserService userService;
 
     @GetMapping
-    public List<User> getAllUsers() {
-        return userService.getAllUsers();
+    public String getAllUsers(Model model) {
+        List<User> users = userService.getAllUsers();
+        model.addAttribute("users", users);
+        return "users";
     }
 
     @GetMapping("/{id}")
@@ -36,6 +40,26 @@ public class UserController {
         return userService.getUsersByEmail(email);
     }
 
+    @GetMapping("/login")
+    public List<User> getUsersByLogin(@RequestParam String login) {
+        return userService.getUsersByLogin(login);
+    }
+
+    @GetMapping("/firstName")
+    public List<User> getUsersByFirstName(@RequestParam String firstName) {
+        return userService.getUsersByFirstName(firstName);
+    }
+
+    @GetMapping("/email")
+    public List<User> getUsersByMiddleName(@RequestParam String middleName) {
+        return userService.getUsersByMiddleName(middleName);
+    }
+
+    @GetMapping("/email")
+    public List<User> getUsersByLastName(@RequestParam String lastName) {
+        return userService.getUsersByLastName(lastName);
+    }
+
     @PostMapping
     public ResponseEntity<User> createUser(@RequestBody User user) {
         User createdUser = userService.createUser(user);
@@ -47,6 +71,7 @@ public class UserController {
         Optional<User> userOptional = userService.getUserById(id);
         if (userOptional.isPresent()) {
             User user = userOptional.get();
+            user.setLogin(userDetails.getLogin());
             user.setFirstName(userDetails.getFirstName());
             user.setLastName(userDetails.getLastName());
             user.setMiddleName(userDetails.getMiddleName());
