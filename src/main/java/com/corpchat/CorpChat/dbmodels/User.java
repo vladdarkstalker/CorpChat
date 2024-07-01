@@ -8,7 +8,7 @@ import java.util.List;
 
 /**
  * Implements the User model.
- * The `users` table stores information about users.
+ * The `user` table stores information about users.
  * Structure:
  *      `id`: A unique user ID (Primary Key).
  *      `login`: Login to log in.
@@ -21,7 +21,7 @@ import java.util.List;
  */
 
 @Entity
-@Table(name = "users")
+@Table(name = "user")
 public class User {
 
     @Id
