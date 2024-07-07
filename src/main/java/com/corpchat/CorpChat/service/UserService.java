@@ -1,7 +1,6 @@
 package com.corpchat.CorpChat.service;
 
 import com.corpchat.CorpChat.dbmodels.User;
-import com.corpchat.CorpChat.dto.UserDto;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import com.corpchat.CorpChat.repository.UserRepository;
@@ -10,10 +9,48 @@ import java.util.List;
 import java.util.Optional;
 
 @Service
-public interface UserService {
-    void saveUser(UserDto userDto);
+public class UserService {
 
-    User findUserByEmail(String email);
+    @Autowired
+    private UserRepository userRepository;
 
-    List<UserDto> findAllUsers();
+    public List<User> getAllUsers() {
+        return userRepository.findAll();
+    }
+
+    public Optional<User> getUserById(Integer id) {
+        return userRepository.findById(id);
+    }
+
+    public List<User> getUsersByLogin(String login) {
+        return userRepository.findByLogin(login);
+    }
+
+    public List<User> getUsersByMiddleName(String middleName) {
+        return userRepository.findByMiddleName(middleName);
+    }
+
+    public List<User> getUsersByLastName(String lastName) {
+        return userRepository.findByLastName(lastName);
+    }
+
+    public List<User> getUsersByFirstName(String firstName) {
+        return userRepository.findByFirstName(firstName);
+    }
+
+    public List<User> getUsersByEmail(String email) {
+        return userRepository.findByEmail(email);
+    }
+
+    public User createUser(User user) {
+        return userRepository.save(user);
+    }
+
+    public User updateUser(User user) {
+        return userRepository.save(user);
+    }
+
+    public void deleteUser(Integer id) {
+        userRepository.deleteById(id);
+    }
 }
