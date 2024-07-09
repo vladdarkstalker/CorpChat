@@ -1,7 +1,10 @@
 package com.corpchat.CorpChat.dbmodels;
 import jakarta.persistence.*;
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
 import java.sql.Timestamp;
-//import java.util.Objects;
 
 /**
  * Implements the ChannelMember model.
@@ -14,6 +17,10 @@ import java.sql.Timestamp;
  *      joined_at: Date and time of joining the channel.
  */
 
+@Getter
+@Setter
+@NoArgsConstructor
+@AllArgsConstructor
 @Entity
 @Table(name = "channel_members")
 public class ChannelMember {
@@ -36,55 +43,6 @@ public class ChannelMember {
     @Column(name = "joined_at", nullable = false, updatable = false, insertable = false, columnDefinition = "TIMESTAMP DEFAULT CURRENT_TIMESTAMP")
     private Timestamp joinedAt;
 
-    public ChannelMember() {}
-
-    public ChannelMember(User user, Channel channel, String role, Timestamp joinedAt) {
-        this.user = user;
-        this.channel = channel;
-        this.role = role;
-        this.joinedAt = joinedAt;
-    }
-
-    public int getId() {
-        return id;
-    }
-
-    public void setId(int id) {
-        this.id = id;
-    }
-
-    public User getUser() {
-        return user;
-    }
-
-    public void setUser(User user) {
-        this.user = user;
-    }
-
-    public Channel getChannel() {
-        return channel;
-    }
-
-    public void setChannel(Channel channel) {
-        this.channel = channel;
-    }
-
-    public String getRole() {
-        return role;
-    }
-
-    public void setRole(String role) {
-        this.role = role;
-    }
-
-    public Timestamp getJoinedAt() {
-        return joinedAt;
-    }
-
-    public void setJoinedAt(Timestamp joinedAt) {
-        this.joinedAt = joinedAt;
-    }
-
     @Override
     public String toString() {
         return "ChannelMember{" +
@@ -95,17 +53,4 @@ public class ChannelMember {
                 ", joinedAt=" + joinedAt +
                 '}';
     }
-
-//    @Override
-//    public boolean equals(Object o) {
-//        if (this == o) return true;
-//        if (o == null || getClass() != o.getClass()) return false;
-//        ChannelMember that = (ChannelMember) o;
-//        return id == that.id && Objects.equals(user, that.user) && Objects.equals(channel, that.channel) && Objects.equals(role, that.role) && Objects.equals(joinedAt, that.joinedAt);
-//    }
-
-//    @Override
-//    public int hashCode() {
-//        return Objects.hash(id, user, channel, role, joinedAt);
-//    }
 }

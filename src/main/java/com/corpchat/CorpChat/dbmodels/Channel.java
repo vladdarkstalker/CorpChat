@@ -1,7 +1,10 @@
 package com.corpchat.CorpChat.dbmodels;
 import jakarta.persistence.*;
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
 import java.sql.Timestamp;
-//import java.util.Objects;
 
 /**
  * Implements the Channel model.
@@ -14,6 +17,10 @@ import java.sql.Timestamp;
  *      `created_by`: ID of the user who created the channel (Foreign Key refers to `users.id`).
  */
 
+@Getter
+@Setter
+@NoArgsConstructor
+@AllArgsConstructor
 @Entity
 @Table(name = "channels")
 public class Channel {
@@ -35,55 +42,6 @@ public class Channel {
     @JoinColumn(name = "created_by", nullable = false)
     private User createdBy;
 
-    public Channel() {}
-
-    public Channel(String name, String description, Timestamp createdAt, User createdBy) {
-        this.name = name;
-        this.description = description;
-        this.createdAt = createdAt;
-        this.createdBy = createdBy;
-    }
-
-    public int getId() {
-        return id;
-    }
-
-    public void setId(int id) {
-        this.id = id;
-    }
-
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
-    }
-
-    public String getDescription() {
-        return description;
-    }
-
-    public void setDescription(String description) {
-        this.description = description;
-    }
-
-    public Timestamp getCreatedAt() {
-        return createdAt;
-    }
-
-    public void setCreatedAt(Timestamp createdAt) {
-        this.createdAt = createdAt;
-    }
-
-    public User getCreatedBy() {
-        return createdBy;
-    }
-
-    public void setCreatedBy(User createdBy) {
-        this.createdBy = createdBy;
-    }
-
     @Override
     public String toString() {
         return "Channel{" +
@@ -94,17 +52,4 @@ public class Channel {
                 ", createdBy=" + createdBy +
                 '}';
     }
-
-//    @Override
-//    public boolean equals(Object o) {
-//        if (this == o) return true;
-//        if (o == null || getClass() != o.getClass()) return false;
-//        Channel channel = (Channel) o;
-//        return id == channel.id && Objects.equals(name, channel.name) && Objects.equals(description, channel.description) && Objects.equals(createdAt, channel.createdAt) && Objects.equals(createdBy, channel.createdBy);
-//    }
-
-//    @Override
-//    public int hashCode() {
-//        return Objects.hash(id, name, description, createdAt, createdBy);
-//    }
 }

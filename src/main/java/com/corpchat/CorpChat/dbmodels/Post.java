@@ -1,7 +1,10 @@
 package com.corpchat.CorpChat.dbmodels;
 import jakarta.persistence.*;
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
 import java.sql.Timestamp;
-//import java.util.Objects;
 
 /**
  * Implements the Post model.
@@ -14,6 +17,10 @@ import java.sql.Timestamp;
  *      `created_at`: Date and time the post was created
  */
 
+@Getter
+@Setter
+@NoArgsConstructor
+@AllArgsConstructor
 @Entity
 @Table(name = "posts")
 public class Post {
@@ -36,55 +43,6 @@ public class Post {
     @Column(name = "created_at", nullable = false, updatable = false, insertable = false, columnDefinition = "TIMESTAMP DEFAULT CURRENT_TIMESTAMP")
     private Timestamp createdAt;
 
-    public Post() {}
-
-    public Post(Channel channel, User user, String content, Timestamp createdAt) {
-        this.channel = channel;
-        this.user = user;
-        this.content = content;
-        this.createdAt = createdAt;
-    }
-
-    public int getId() {
-        return id;
-    }
-
-    public void setId(int id) {
-        this.id = id;
-    }
-
-    public Channel getChannel() {
-        return channel;
-    }
-
-    public void setChannel(Channel channel) {
-        this.channel = channel;
-    }
-
-    public User getUser() {
-        return user;
-    }
-
-    public void setUser(User user) {
-        this.user = user;
-    }
-
-    public String getContent() {
-        return content;
-    }
-
-    public void setContent(String content) {
-        this.content = content;
-    }
-
-    public Timestamp getCreatedAt() {
-        return createdAt;
-    }
-
-    public void setCreatedAt(Timestamp createdAt) {
-        this.createdAt = createdAt;
-    }
-
     @Override
     public String toString() {
         return "Post{" +
@@ -95,17 +53,4 @@ public class Post {
                 ", createdAt=" + createdAt +
                 '}';
     }
-
-//    @Override
-//    public boolean equals(Object o) {
-//        if (this == o) return true;
-//        if (o == null || getClass() != o.getClass()) return false;
-//        Post post = (Post) o;
-//        return id == post.id && Objects.equals(channel, post.channel) && Objects.equals(user, post.user) && Objects.equals(content, post.content) && Objects.equals(createdAt, post.createdAt);
-//    }
-
-//    @Override
-//    public int hashCode() {
-//        return Objects.hash(id, channel, user, content, createdAt);
-//    }
 }

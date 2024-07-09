@@ -1,7 +1,10 @@
 package com.corpchat.CorpChat.dbmodels;
 import jakarta.persistence.*;
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
 import java.sql.Timestamp;
-//import java.util.Objects;
 
 /**
  * Implements the PostLike model.
@@ -14,6 +17,10 @@ import java.sql.Timestamp;
  *      `created_at`: Date and time when the like/dislike was created.
  */
 
+@Getter
+@Setter
+@NoArgsConstructor
+@AllArgsConstructor
 @Entity
 @Table(name = "post_likes")
 public class PostLike {
@@ -36,55 +43,6 @@ public class PostLike {
     @Column(name = "created_at", nullable = false, updatable = false, insertable = false, columnDefinition = "TIMESTAMP DEFAULT CURRENT_TIMESTAMP")
     private Timestamp createdAt;
 
-    public PostLike() {}
-
-    public PostLike(Post post, User user, String likeType, Timestamp createdAt) {
-        this.post = post;
-        this.user = user;
-        this.likeType = likeType;
-        this.createdAt = createdAt;
-    }
-
-    public int getId() {
-        return id;
-    }
-
-    public void setId(int id) {
-        this.id = id;
-    }
-
-    public Post getPost() {
-        return post;
-    }
-
-    public void setPost(Post post) {
-        this.post = post;
-    }
-
-    public User getUser() {
-        return user;
-    }
-
-    public void setUser(User user) {
-        this.user = user;
-    }
-
-    public String getLikeType() {
-        return likeType;
-    }
-
-    public void setLikeType(String likeType) {
-        this.likeType = likeType;
-    }
-
-    public Timestamp getCreatedAt() {
-        return createdAt;
-    }
-
-    public void setCreatedAt(Timestamp createdAt) {
-        this.createdAt = createdAt;
-    }
-
     @Override
     public String toString() {
         return "PostLike{" +
@@ -95,17 +53,4 @@ public class PostLike {
                 ", createdAt=" + createdAt +
                 '}';
     }
-
-//    @Override
-//    public boolean equals(Object o) {
-//        if (this == o) return true;
-//        if (o == null || getClass() != o.getClass()) return false;
-//        PostLike postLike = (PostLike) o;
-//        return id == postLike.id && Objects.equals(post, postLike.post) && Objects.equals(user, postLike.user) && Objects.equals(likeType, postLike.likeType) && Objects.equals(createdAt, postLike.createdAt);
-//    }
-
-//    @Override
-//    public int hashCode() {
-//        return Objects.hash(id, post, user, likeType, createdAt);
-//    }
 }

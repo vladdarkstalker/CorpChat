@@ -1,7 +1,10 @@
 package com.corpchat.CorpChat.dbmodels;
 import jakarta.persistence.*;
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
 import java.sql.Timestamp;
-//import java.util.Objects;
 
 /**
  * Implements the PrivateChat model.
@@ -13,6 +16,10 @@ import java.sql.Timestamp;
  *      `created_at`: Date and time the chat was created
  */
 
+@Getter
+@Setter
+@NoArgsConstructor
+@AllArgsConstructor
 @Entity
 @Table(name = "private_chats")
 public class PrivateChat {
@@ -32,43 +39,9 @@ public class PrivateChat {
     @Column(name = "created_at", nullable = false, updatable = false, insertable = false, columnDefinition = "TIMESTAMP DEFAULT CURRENT_TIMESTAMP")
     private Timestamp createdAt;
 
-    public PrivateChat() {}
-
     public PrivateChat(User sender, User receiver, Timestamp createdAt) {
         this.sender = sender;
         this.receiver = receiver;
-        this.createdAt = createdAt;
-    }
-
-    public int getId() {
-        return id;
-    }
-
-    public void setId(int id) {
-        this.id = id;
-    }
-
-    public User getSender() {
-        return sender;
-    }
-
-    public void setSender(User sender) {
-        this.sender = sender;
-    }
-
-    public User getReceiver() {
-        return receiver;
-    }
-
-    public void setReceiver(User receiver) {
-        this.receiver = receiver;
-    }
-
-    public Timestamp getCreatedAt() {
-        return createdAt;
-    }
-
-    public void setCreatedAt(Timestamp createdAt) {
         this.createdAt = createdAt;
     }
 
@@ -81,17 +54,4 @@ public class PrivateChat {
                 ", createdAt=" + createdAt +
                 '}';
     }
-
-//    @Override
-//    public boolean equals(Object o) {
-//        if (this == o) return true;
-//        if (o == null || getClass() != o.getClass()) return false;
-//        PrivateChat that = (PrivateChat) o;
-//        return id == that.id && Objects.equals(sender, that.sender) && Objects.equals(receiver, that.receiver) && Objects.equals(createdAt, that.createdAt);
-//    }
-
-//    @Override
-//    public int hashCode() {
-//        return Objects.hash(id, sender, receiver, createdAt);
-//    }
 }
