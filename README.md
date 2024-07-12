@@ -3,4 +3,4 @@
 
 ---
 
-Technologies used: OpenJDK 17, Maven, Spring Boot 3.3.1, PostgreSQL 16.3
+Technologies used: OpenJDK ?, Maven, Spring Boot ???, PostgreSQL 16.3
