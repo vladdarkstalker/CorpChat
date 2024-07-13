@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Users Page</title>
+</head>
+<body>
+<h1>Users Page</h1>
+<p>This is page for only users!</p>
+<a th:href="@{/welcome}">Welcome Page</a>
+<a th:href="@{/all}">All Page</a>
+<a th:href="@{/admins}">Admins Page</a>
+
+<form th:action="@{/logout}" method="post">
+    <button type="submit">Log out</button>
+</form>
+</body>
+</html>
