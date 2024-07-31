@@ -1,17 +1,101 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
-    <title>Admins Page</title>
+    <meta charset="ISO-8859-1">
+    <title>Admins - CorpChat</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+    <style>
+        body {
+            background-color: #f7f8fa;
+            font-family: Arial, sans-serif;
+            color: #333;
+        }
+
+        .navbar-inverse {
+            background-color: #003366;
+            border-color: #003366;
+        }
+
+        .navbar-inverse .navbar-brand {
+            color: #fff;
+            font-size: 24px;
+            font-weight: bold;
+        }
+
+        .container {
+            margin-top: 100px;
+        }
+
+        h1 {
+            font-size: 28px;
+            font-weight: bold;
+            margin-bottom: 20px;
+            color: #003366;
+            text-align: center;
+        }
+
+        p {
+            font-size: 18px;
+            text-align: center;
+            margin-bottom: 30px;
+        }
+
+        .btn-primary {
+            background-color: #003366;
+            border-color: #003366;
+            border-radius: 5px;
+            font-weight: bold;
+            margin-bottom: 10px;
+        }
+
+        .form-inline {
+            display: flex;
+            justify-content: center;
+            margin-top: 20px;
+        }
+
+        a {
+            color: #003366;
+            font-weight: bold;
+            margin: 0 10px;
+            text-align: center;
+            display: block;
+        }
+    </style>
 </head>
 <body>
-<h1>Admins Page</h1>
-<p>This is page for only admins!</p>
-<a th:href="@{/welcome}">Welcome Page</a>
-<a th:href="@{/all}">All Page</a>
-<a th:href="@{/users}">Users Page</a>
 
-<form th:action="@{/logout}" method="post">
-    <button type="submit">Log out</button>
-</form>
+<!-- create navigation bar (header) -->
+<nav class="navbar navbar-inverse navbar-fixed-top">
+    <div class="container">
+        <div class="navbar-header">
+            <button type="button" class="navbar-toggle collapsed"
+                    data-toggle="collapse" data-target="#navbar"
+                    aria-expanded="false" aria-controls="navbar">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span> <span
+                    class="icon-bar"></span> <span class="icon-bar"></span>
+            </button>
+            <a class="navbar-brand">
+                CorpChat</a>
+        </div>
+    </div>
+</nav>
+
+<div class="container">
+    <h1>Admins Page</h1>
+    <p>This is page for only admins!</p>
+
+    <div class="text-center">
+        <a th:href="@{/welcome}" class="btn btn-primary">Welcome Page</a>
+        <a th:href="@{/all}" class="btn btn-primary">All Page</a>
+        <a th:href="@{/users}" class="btn btn-primary">Users Page</a>
+    </div>
+
+    <form th:action="@{/logout}" method="post" class="form-inline">
+        <button type="submit" class="btn btn-danger">Log out</button>
+    </form>
+</div>
+
 </body>
 </html>

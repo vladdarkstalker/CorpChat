@@ -2,14 +2,64 @@
 <html xmlns:th="http://www.w3.org/1999/xhtml">
 <head>
     <meta charset="ISO-8859-1">
-    <title>Spring Security 6 + Thymeleaf Demo</title>
+    <title>Registration - CorpChat</title>
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
-</head>
+    <style>
+        body {
+            background-color: #f7f8fa;
+            font-family: Arial, sans-serif;
+            color: #333;
+        }
 
+        .navbar-inverse {
+            background-color: #003366;
+            border-color: #003366;
+        }
+
+        .navbar-inverse .navbar-brand {
+            color: #fff;
+            font-size: 24px;
+            font-weight: bold;
+        }
+
+        .container {
+            margin-top: 100px;
+        }
+
+        h1 {
+            font-size: 28px;
+            font-weight: bold;
+            margin-bottom: 20px;
+            color: #003366;
+            text-align: center;
+        }
+
+        .form-control {
+            border-radius: 5px;
+            border: 1px solid #ccc;
+        }
+
+        .btn-primary {
+            background-color: #003366;
+            border-color: #003366;
+            border-radius: 5px;
+            font-weight: bold;
+        }
+
+        .alert {
+            margin-top: 10px;
+        }
+
+        .form-group span a {
+            color: #003366;
+            font-weight: bold;
+        }
+    </style>
+</head>
 
 <body>
 
-<!-- create navigation bar ( header) -->
+<!-- create navigation bar (header) -->
 <nav class="navbar navbar-inverse navbar-fixed-top">
     <div class="container">
         <div class="navbar-header">
@@ -17,76 +67,60 @@
                     data-toggle="collapse" data-target="#navbar"
                     aria-expanded="false" aria-controls="navbar">
                 <span class="sr-only">Toggle navigation</span>
-                <span class="icon-bar"></span> <span
-                    class="icon-bar"></span> <span class="icon-bar"></span>
+                <span class="icon-bar"></span> <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
             </button>
             <a class="navbar-brand">
-                Registration and Login with Spring Boot 3 + Spring Security 6 + Thymeleaf</a>
+                CorpChat Registration</a>
         </div>
     </div>
 </nav>
 
-<br><br><br><br><br><br><br>
-<!-- Create HTML registration form -->
 <div class="container">
     <div class="row">
         <div class="col-md-6 col-md-offset-3">
 
             <!-- success message -->
             <div th:if="${param.success}">
-                <div class="alert alert-info">You've successfully registered
-                    to our awesome app!</div>
+                <div class="alert alert-info">You've successfully registered to our awesome app!</div>
             </div>
 
+            <!-- error messages -->
             <div th:if="${param.email_invalid}">
-                <div class="alert alert-danger">
-                    Email is Already Registered!</div>
+                <div class="alert alert-danger">Email is Already Registered!</div>
             </div>
 
             <h1>Registration</h1>
 
-            <form th:action="@{/registration}" method="post"
-                  th:object="${user}">
+            <form th:action="@{/registration}" method="post" th:object="${user}">
                 <div class="form-group">
-                    <label class="control-label" for="firstName">
-                        First Name </label>
-                    <input id="firstName" class="form-control"
-                           th:field="*{firstName}" required
-                           autofocus="autofocus" />
+                    <label class="control-label" for="firstName">First Name</label>
+                    <input id="firstName" class="form-control" th:field="*{firstName}" required autofocus="autofocus" />
                 </div>
 
                 <div class="form-group">
-                    <label class="control-label" for="lastName">
-                        Last Name </label> <input id="lastName"
-                                                  class="form-control" th:field="*{lastName}"
-                                                  required autofocus="autofocus" />
+                    <label class="control-label" for="lastName">Last Name</label>
+                    <input id="lastName" class="form-control" th:field="*{lastName}" required />
                 </div>
 
                 <div class="form-group">
-                    <label class="control-label" for="email"> Email
-                    </label> <input id="email" class="form-control"
-                                    th:field="*{email}" required autofocus="autofocus"
-                />
+                    <label class="control-label" for="email">Email</label>
+                    <input id="email" class="form-control" th:field="*{email}" required />
                 </div>
 
                 <div class="form-group">
-                    <label class="control-label" for="password">
-                        Password </label> <input id="password"
-                                                 class="form-control" type="password"
-                                                 th:field="*{password}" required
-                                                 autofocus="autofocus" />
+                    <label class="control-label" for="password">Password</label>
+                    <input id="password" class="form-control" type="password" th:field="*{password}" required />
                 </div>
 
                 <div class="form-group">
-                    <button type="submit" class="btn btn-primary">
-                        Register</button>
-                    <span>Already registered? <a href="/"
-                                                 th:href="@{/login}">Login
-                                here</a></span>
+                    <button type="submit" class="btn btn-primary">Register</button>
+                    <span>Already registered? <a href="/" th:href="@{/login}">Login here</a></span>
                 </div>
             </form>
         </div>
     </div>
 </div>
+
 </body>
 </html>

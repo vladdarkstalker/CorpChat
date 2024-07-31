@@ -10,8 +10,8 @@ public class HomeController {
         return "login";
     }
 
-    @GetMapping("/")
-    public String home() {
-        return "redirect:/welcome";
-    }
+//    @GetMapping("/")
+//    public String home() {
+//        return "redirect:/welcome";
+//    }
 }
