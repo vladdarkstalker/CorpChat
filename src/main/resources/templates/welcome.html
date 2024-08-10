@@ -61,6 +61,20 @@
             text-align: center;
             display: block;
         }
+
+        .user-info {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            margin-top: 20px;
+            font-size: 18px;
+            font-weight: bold;
+            color: #003366;
+        }
+
+        .user-info button {
+            margin-left: 20px;
+        }
     </style>
 </head>
 <body>
@@ -85,9 +99,13 @@
         <a th:href="@{/admins}" class="btn btn-primary">Admins Page</a>
     </div>
 
-    <form th:action="@{/logout}" method="post" class="form-inline">
-        <button type="submit" class="btn btn-danger">Log out</button>
-    </form>
+    <!-- User information and Logout button -->
+    <div class="user-info">
+        <span th:text="${userName}">User Name</span>
+        <form th:action="@{/logout}" method="post">
+            <button type="submit" class="btn btn-danger">Log out</button>
+        </form>
+    </div>
 </div>
 
 </body>
