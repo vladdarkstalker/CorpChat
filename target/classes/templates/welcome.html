@@ -9,104 +9,165 @@
             background-color: #f7f8fa;
             font-family: Arial, sans-serif;
             color: #333;
+            margin: 0;
+            padding-top: 70px; /* ?????? ??? navbar */
         }
 
         .navbar-inverse {
             background-color: #003366;
             border-color: #003366;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 10px 15px;
         }
 
         .navbar-inverse .navbar-brand {
             color: #fff;
             font-size: 24px;
             font-weight: bold;
-        }
-
-        .container {
-            margin-top: 100px;
-        }
-
-        h1 {
-            font-size: 28px;
-            font-weight: bold;
-            margin-bottom: 20px;
-            color: #003366;
-            text-align: center;
-        }
-
-        p {
-            font-size: 18px;
-            text-align: center;
-            margin-bottom: 30px;
-        }
-
-        .btn-primary {
-            background-color: #003366;
-            border-color: #003366;
-            border-radius: 5px;
-            font-weight: bold;
-            margin-bottom: 10px;
-        }
-
-        .form-inline {
             display: flex;
-            justify-content: center;
-            margin-top: 20px;
-        }
-
-        a {
-            color: #003366;
-            font-weight: bold;
-            margin: 0 10px;
-            text-align: center;
-            display: block;
-        }
-
-        .user-info {
-            display: flex;
-            justify-content: center;
             align-items: center;
-            margin-top: 20px;
-            font-size: 18px;
-            font-weight: bold;
-            color: #003366;
+            margin: 0;
+            line-height: 1.5;
         }
 
-        .user-info button {
-            margin-left: 20px;
+        .logout-button button {
+            font-size: 16px;
+            padding: 6px 12px;
+            line-height: 1.5;
+            display: flex;
+            align-items: center;
+            margin: 5px;
+        }
+
+        .main-content {
+            display: flex;
+            height: calc(100vh - 70px); /* ?????? ????? navbar */
+        }
+
+        .sidebar {
+            width: 30%;
+            background-color: #e9ecef;
+            padding: 20px;
+            border-right: 1px solid #ccc;
+        }
+
+        .chat-container {
+            width: 70%;
+            padding: 20px;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .chat-box {
+            flex: 1;
+            border: 1px solid #ccc;
+            padding: 20px;
+            background-color: #fff;
+            overflow-y: auto;
+        }
+
+        .chat-input {
+            margin-top: 10px;
+            display: flex;
+        }
+
+        .chat-input textarea {
+            flex: 1;
+            resize: none;
+        }
+
+        .chat-input button {
+            margin-left: 10px;
+        }
+
+        .user-list {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+        }
+
+        .user-list li {
+            padding: 10px;
+            margin-bottom: 5px;
+            background-color: #fff;
+            border: 1px solid #ccc;
+            cursor: pointer;
+        }
+
+        .user-list li:hover {
+            background-color: #ddd;
+        }
+
+        .user-search {
+            margin-bottom: 20px;
         }
     </style>
 </head>
 <body>
 
+
 <!-- create navigation bar (header) -->
 <nav class="navbar navbar-inverse navbar-fixed-top">
     <div class="container">
-        <div class="navbar-header">
-            <a class="navbar-brand">
-                Welcome to CorpChat!</a>
+        <div class="navbar-brand" th:text="${userName} + ', welcome to CorpChat!'"></div>
+        <div class="logout-button">
+            <form th:action="@{/logout}" method="post">
+                <button type="submit" class="btn btn-danger">Log out</button>
+            </form>
         </div>
     </div>
 </nav>
 
-<div class="container">
-    <h1>Welcome Page</h1>
-    <p>This is an unprotected welcome page!</p>
-
-    <div class="text-center">
-        <a th:href="@{/all}" class="btn btn-primary">All Page</a>
-        <a th:href="@{/users}" class="btn btn-primary">Users Page</a>
-        <a th:href="@{/admins}" class="btn btn-primary">Admins Page</a>
+<div class="container-fluid main-content">
+    <!-- ????? ???????: ?????? ????????????? -->
+    <div class="sidebar">
+        <input type="text" class="form-control user-search" id="user-search" placeholder="Search users...">
+        <ul class="user-list" id="user-list">
+            <li th:each="user : ${users}" th:text="${user.firstName + ' ' + user.lastName}" th:onclick="'openChat(' + ${user.id} + ')'" ></li>
+        </ul>
     </div>
 
-    <!-- User information and Logout button -->
-    <div class="user-info">
-        <span th:text="${userName}">User Name</span>
-        <form th:action="@{/logout}" method="post">
-            <button type="submit" class="btn btn-danger">Log out</button>
-        </form>
+    <!-- ?????? ???????: ??? -->
+    <div class="chat-container">
+        <div id="chat-box" class="chat-box">
+            <p>Select a user to start chatting.</p>
+        </div>
+        <div class="chat-input">
+            <textarea class="form-control" rows="3" placeholder="Type your message..."></textarea>
+            <button class="btn btn-primary">Send</button>
+        </div>
     </div>
 </div>
+
+<script>
+    document.getElementById('user-search').addEventListener('input', function() {
+        const searchQuery = this.value.toLowerCase();
+        const userList = document.getElementById('user-list');
+
+        // ?????????? AJAX-?????? ?? ??????
+        fetch(`/search?query=${encodeURIComponent(searchQuery)}`)
+            .then(response => response.json())
+            .then(users => {
+                // ??????? ??????? ?????? ?????????????
+                userList.innerHTML = '';
+
+                // ????????? ?????? ?????? ????????????
+                users.forEach(user => {
+                    const li = document.createElement('li');
+                    li.textContent = `${user.firstName} ${user.lastName}`;
+                    li.onclick = () => openChat(user.id);
+                    userList.appendChild(li);
+                });
+            });
+    });
+
+    function openChat(userId) {
+        const chatBox = document.getElementById('chat-box');
+        chatBox.innerHTML = `<h4>Chat with User ${userId}</h4><p>Chat history will appear here.</p>`;
+    }
+</script>
 
 </body>
 </html>

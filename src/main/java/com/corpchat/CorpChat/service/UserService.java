@@ -11,4 +11,6 @@ import java.util.*;
 public interface UserService extends UserDetailsService {
     User save(UserRegistrationDto registrationDto);
     List<User> getAll();
+    List<User> searchUsers(String query);
+    User findById(Long id);
 }
