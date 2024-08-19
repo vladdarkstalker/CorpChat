@@ -157,16 +157,60 @@
                 users.forEach(user => {
                     const li = document.createElement('li');
                     li.textContent = `${user.firstName} ${user.lastName}`;
-                    li.onclick = () => openChat(user.id);
+                    li.onclick = () => openChat(user.id, `${user.firstName} ${user.lastName}`);
                     userList.appendChild(li);
                 });
             });
     });
 
-    function openChat(userId) {
-        const chatBox = document.getElementById('chat-box');
-        chatBox.innerHTML = `<h4>Chat with User ${userId}</h4><p>Chat history will appear here.</p>`;
+const sendButton = document.querySelector('.chat-input button');
+const messageInput = document.querySelector('.chat-input textarea');
+
+sendButton.onclick = function() {
+    const content = messageInput.value;
+    const userId = document.getElementById('chat-box').dataset.userId; // ???????? ???????? ????????????
+
+    if (content.trim()) {
+        fetch('/chat/send', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({
+                senderId: currentUserId,
+                receiverId: userId,
+                content: content
+            })
+        })
+        .then(response => response.json())
+        .then(message => {
+            const messageElement = document.createElement('p');
+            messageElement.textContent = `${message.sender.firstName}: ${message.content}`;
+            document.getElementById('chat-history').appendChild(messageElement);
+            messageInput.value = ''; // ??????? ?????????? ????
+        })
+        .catch(error => console.error('Error:', error));
     }
+};
+
+function openChat(userId, userName) {
+    const chatBox = document.getElementById('chat-box');
+    chatBox.innerHTML = `<h4>Chat with ${userName}</h4><div id="chat-history"></div>`;
+    chatBox.dataset.userId = userId; // ?????????? userId ??? ????????????? ? sendButton.onclick
+
+    // ???????? ??????? ????
+    fetch(`/chat/history?userId1=${currentUserId}&userId2=${userId}`)
+        .then(response => response.json())
+        .then(messages => {
+            const chatHistory = document.getElementById('chat-history');
+            chatHistory.innerHTML = ''; // ??????? ?????????? ?????????
+            messages.forEach(message => {
+                const messageElement = document.createElement('p');
+                messageElement.textContent = `${message.sender.firstName}: ${message.content}`;
+                chatHistory.appendChild(messageElement);
+            });
+        });
+}
 </script>
 
 </body>
