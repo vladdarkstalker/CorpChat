@@ -6,28 +6,22 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
-import java.sql.Timestamp;
-
 @Getter
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
 @Entity
-@Table(name = "message")
-public class Message {
+@Table(name = "chatmessage")
+public class ChatMessage {
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-
-    @ManyToOne
-    @JoinColumn(name = "sender_id")
-    private User sender;
-
-    @ManyToOne
-    @JoinColumn(name = "receiver_id")
-    private User receiver;
-
+    private MessageType type;
     private String content;
+    private String sender;
 
-    private Timestamp timestamp;
+    public enum MessageType {
+        CHAT, JOIN, LEAVE
+    }
 }

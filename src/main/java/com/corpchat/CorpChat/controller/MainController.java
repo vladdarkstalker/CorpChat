@@ -1,4 +1,5 @@
 package com.corpchat.CorpChat.controller;
+import jakarta.servlet.http.HttpServletRequest;
 import lombok.AllArgsConstructor;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -15,7 +16,7 @@ public class MainController {
     @GetMapping("/")
     public String home(@AuthenticationPrincipal UserDetails userDetails) {
         if (userDetails != null) {
-            return "redirect:/welcome";  // Авторизованный пользователь
+            return "redirect:/chat";  // Авторизованный пользователь
         } else {
             return "redirect:/login";  // Неавторизованный пользователь
         }
@@ -28,5 +29,20 @@ public class MainController {
             model.addAttribute("userName", username);
         }
         return "welcome";
+    }
+
+    @GetMapping("/chat")
+    public String pageChat(Model model, @AuthenticationPrincipal UserDetails userDetails) {
+        if (userDetails != null) {
+            String username = userDetails.getUsername();
+            model.addAttribute("userName", username);
+        }
+        return "chat";
+    }
+
+    @GetMapping(path = "/logout")
+    public String logout(HttpServletRequest request) {
+        request.getSession(true).invalidate();
+        return "redirect:/login";
     }
 }

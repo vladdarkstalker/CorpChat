@@ -1,0 +1,230 @@
+/* Reset box-sizing for all elements */
+* {
+    -webkit-box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    box-sizing: border-box;
+}
+
+/* Global Styles */
+html, body {
+    height: 100%;
+    overflow: hidden;
+    background-color: #f7f8fa; /* From welcome.html */
+    font-family: Arial, sans-serif; /* From welcome.html */
+    color: #333; /* From welcome.html */
+    margin: 0;
+    padding-top: 70px; /* Padding for navbar from welcome.html */
+}
+
+/* Navbar Styles */
+.navbar-inverse {
+    background-color: #003366;
+    border-color: #003366;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px 15px;
+}
+
+.navbar-inverse .navbar-brand {
+    color: #fff;
+    font-size: 24px;
+    font-weight: bold;
+    display: flex;
+    align-items: center;
+    margin: 0;
+    line-height: 1.5;
+}
+
+.logout-button button {
+    font-size: 16px;
+    padding: 6px 12px;
+    line-height: 1.5;
+    display: flex;
+    align-items: center;
+    margin: 5px;
+}
+
+/* Sidebar Styles */
+.sidebar {
+    width: 30%;
+    background-color: #e9ecef;
+    padding: 20px;
+    border-right: 1px solid #ccc;
+}
+
+/* Chat Container Styles */
+.chat-container {
+    width: 70%;
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+    height: calc(100vh - 70px); /* Adjusted height calculation */
+}
+
+.chat-box {
+    flex: 1;
+    border: 1px solid #ccc;
+    padding: 20px;
+    background-color: #fff;
+    overflow-y: auto;
+}
+
+.chat-input {
+    margin-top: 10px;
+    display: flex;
+}
+
+.chat-input textarea {
+    flex: 1;
+    resize: none;
+}
+
+.chat-input button {
+    margin-left: 10px;
+}
+
+/* User List Styles */
+.user-list {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+.user-list li {
+    padding: 10px;
+    margin-bottom: 5px;
+    background-color: #fff;
+    border: 1px solid #ccc;
+    cursor: pointer;
+}
+
+.user-list li:hover {
+    background-color: #ddd;
+}
+
+/* Specific Page Styles */
+#login-page {
+    text-align: center;
+}
+
+.nickname {
+    color: blue;
+    margin-right: 20px;
+}
+
+.hidden {
+    display: none;
+}
+
+.user-container {
+    float: right;
+    margin-right: 5px;
+}
+
+#login-container {
+    background: #f4f6f6;
+    border: 2px solid #ccc;
+    width: 100%;
+    max-width: 500px;
+    display: inline-block;
+    margin-top: 42px;
+    vertical-align: middle;
+    position: relative;
+    padding: 35px 55px;
+    min-height: 250px;
+    top: 50%;
+    left: 0;
+    right: 0;
+    margin: 0 auto;
+    margin-top: -160px;
+}
+
+#chat-container {
+    position: relative;
+    height: 100%;
+    border: 2px solid #d5dbdb;
+    background-color: #d5dbdb;
+    max-width: 500px;
+    margin: 30px auto 0 auto;
+    height: calc(100% - 60px);
+    max-height: 600px;
+}
+
+#chat-container ul {
+    list-style-type: none;
+    background-color: #fff;
+    margin: 0;
+    overflow-y: scroll;
+    padding: 0 20px;
+    height: calc(100% - 150px);
+}
+
+#chat-container ul li {
+    line-height: 1.5rem;
+    padding: 10px 20px;
+    margin: 0;
+    border-bottom: 1px solid #f4f4f4;
+}
+
+#chat-container ul li p {
+    margin: 0;
+}
+
+#chat-container .event-message {
+    width: 100%;
+    text-align: center;
+    clear: both;
+}
+
+#chat-container .event-message p {
+    color: #777;
+    font-size: 14px;
+    word-wrap: break-word;
+}
+
+#chat-container .chat-message {
+    position: relative;
+}
+
+#messageForm .input-message {
+    float: left;
+    width: calc(100% - 85px);
+}
+
+.connecting {
+    text-align: center;
+    color: #777;
+    width: 100%;
+}
+
+/* Add styles for chat-header to match navbar style */
+.chat-header {
+    background-color: #003366;
+    color: #fff;
+    padding: 10px 15px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.chat-header h3 {
+    margin: 0;
+    font-size: 24px;
+    font-weight: bold;
+}
+
+.chat-header .user-container {
+    float: none;
+    margin-right: 0;
+}
+
+.chat-header a {
+    color: #fff;
+    margin-left: 20px;
+    text-decoration: none;
+}
+
+.chat-header a:hover {
+    text-decoration: underline;
+}

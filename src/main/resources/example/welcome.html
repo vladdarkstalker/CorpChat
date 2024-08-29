@@ -10,7 +10,7 @@
             font-family: Arial, sans-serif;
             color: #333;
             margin: 0;
-            padding-top: 70px; /* ?????? ??? navbar */
+            padding-top: 70px; /* Padding for navbar */
         }
 
         .navbar-inverse {
@@ -43,7 +43,7 @@
 
         .main-content {
             display: flex;
-            height: calc(100vh - 70px); /* ?????? ????? navbar */
+            height: calc(100vh - 70px); /* Height for main content */
         }
 
         .sidebar {
@@ -106,9 +106,7 @@
     </style>
 </head>
 <body>
-
-
-<!-- create navigation bar (header) -->
+<!-- Create navigation bar (header) -->
 <nav class="navbar navbar-inverse navbar-fixed-top">
     <div class="container">
         <div class="navbar-brand" th:text="${userName} + ', welcome to CorpChat!'"></div>
@@ -121,15 +119,13 @@
 </nav>
 
 <div class="container-fluid main-content">
-    <!-- ????? ???????: ?????? ????????????? -->
     <div class="sidebar">
         <input type="text" class="form-control user-search" id="user-search" placeholder="Search users...">
         <ul class="user-list" id="user-list">
-            <li th:each="user : ${users}" th:text="${user.firstName + ' ' + user.lastName}" th:onclick="'openChat(' + ${user.id} + ')'" ></li>
+            <li th:each="user : ${users}" th:text="${user.firstName + ' ' + user.lastName}" th:onclick="'openChat(' + ${user.id} + ', \'' + ${user.firstName} + ' ' + ${user.lastName} + '\')'"></li>
         </ul>
     </div>
 
-    <!-- ?????? ???????: ??? -->
     <div class="chat-container">
         <div id="chat-box" class="chat-box">
             <p>Select a user to start chatting.</p>
@@ -141,19 +137,18 @@
     </div>
 </div>
 
+<!-- Hidden element to store current user ID -->
+<meta id="current-user-id" content="${currentUserId}"/>
+
 <script>
     document.getElementById('user-search').addEventListener('input', function() {
         const searchQuery = this.value.toLowerCase();
         const userList = document.getElementById('user-list');
 
-        // ?????????? AJAX-?????? ?? ??????
         fetch(`/search?query=${encodeURIComponent(searchQuery)}`)
             .then(response => response.json())
             .then(users => {
-                // ??????? ??????? ?????? ?????????????
                 userList.innerHTML = '';
-
-                // ????????? ?????? ?????? ????????????
                 users.forEach(user => {
                     const li = document.createElement('li');
                     li.textContent = `${user.firstName} ${user.lastName}`;
@@ -163,54 +158,51 @@
             });
     });
 
-const sendButton = document.querySelector('.chat-input button');
-const messageInput = document.querySelector('.chat-input textarea');
+    function openChat(userId, userName) {
+        const chatBox = document.getElementById('chat-box');
+        chatBox.innerHTML = ''; // Clear old chat messages
 
-sendButton.onclick = function() {
-    const content = messageInput.value;
-    const userId = document.getElementById('chat-box').dataset.userId; // ???????? ???????? ????????????
+        fetch(`/chat/history?userId=${userId}`)
+            .then(response => response.json())
+            .then(messages => {
+                messages.forEach(message => {
+                    const messageElement = document.createElement('p');
+                    messageElement.textContent = `${message.sender.firstName}: ${message.content}`;
+                    chatBox.appendChild(messageElement);
+                });
+            });
 
-    if (content.trim()) {
-        fetch('/chat/send', {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json'
-            },
-            body: JSON.stringify({
-                senderId: currentUserId,
-                receiverId: userId,
-                content: content
-            })
-        })
-        .then(response => response.json())
-        .then(message => {
-            const messageElement = document.createElement('p');
-            messageElement.textContent = `${message.sender.firstName}: ${message.content}`;
-            document.getElementById('chat-history').appendChild(messageElement);
-            messageInput.value = ''; // ??????? ?????????? ????
-        })
-        .catch(error => console.error('Error:', error));
+        chatBox.dataset.userId = userId;
+        chatBox.dataset.userName = userName;
     }
-};
 
-function openChat(userId, userName) {
-    const chatBox = document.getElementById('chat-box');
-    chatBox.innerHTML = `<h4>Chat with ${userName}</h4><div id="chat-history"></div>`;
-    chatBox.dataset.userId = userId; // ?????????? userId ??? ????????????? ? sendButton.onclick
+    document.querySelector('.chat-input button').onclick = function() {
+        const content = document.querySelector('.chat-input textarea').value;
+        const receiverId = document.getElementById('chat-box').dataset.userId;
+        const senderId = document.getElementById('current-user-id').content;
 
-    // ???????? ??????? ????
-    fetch(`/chat/history?userId1=${currentUserId}&userId2=${userId}`)
-        .then(response => response.json())
-        .then(messages => {
-            const chatHistory = document.getElementById('chat-history');
-            chatHistory.innerHTML = ''; // ??????? ?????????? ?????????
-            messages.forEach(message => {
+        if (content.trim()) {
+            fetch('/chat/send', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({
+                    senderId: senderId,
+                    receiverId: receiverId,
+                    content: content
+                })
+            })
+            .then(response => response.json())
+            .then(message => {
                 const messageElement = document.createElement('p');
                 messageElement.textContent = `${message.sender.firstName}: ${message.content}`;
-                chatHistory.appendChild(messageElement);
-            });
-        });
-}
+                document.getElementById('chat-box').appendChild(messageElement);
+                document.querySelector('.chat-input textarea').value = ''; // Clear input field
+            })
+            .catch(error => console.error('Error:', error));
+        }
+    };
 </script>
 
 </body>
