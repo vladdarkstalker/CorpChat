@@ -75,33 +75,23 @@ function onMessageReceived(payload) {
 
     if(message.type === 'JOIN') {
         messageElement.classList.add('event-message');
-        message.content = message.sender + ' joined!';
+        messageElement.textContent = message.sender + ' присоединился!';
     } else if (message.type === 'LEAVE') {
         messageElement.classList.add('event-message');
-        message.content = message.sender + ' left!';
+        messageElement.textContent = message.sender + ' покинул чат!';
     } else {
         messageElement.classList.add('chat-message');
 
-        // Assign a color to the user if not already assigned
-//        if(!userColors[message.sender]) {
-//            userColors[message.sender] = getRandomColor();
-//        }
-
-        // Set background color for the message
-        messageElement.style.backgroundColor = userColors[message.sender];
-
         var usernameElement = document.createElement('strong');
         usernameElement.classList.add('nickname');
-        var usernameText = document.createTextNode(message.sender);
-        usernameElement.appendChild(usernameText);
+        usernameElement.textContent = message.sender;
         messageElement.appendChild(usernameElement);
+
+        var textElement = document.createElement('span');
+        textElement.classList.add('message-content');
+        textElement.textContent = ' ' + message.content;
+        messageElement.appendChild(textElement);
     }
-
-    var textElement = document.createElement('span');
-    var messageText = document.createTextNode(message.content);
-    textElement.appendChild(messageText);
-
-    messageElement.appendChild(textElement);
 
     messageArea.appendChild(messageElement);
     messageArea.scrollTop = messageArea.scrollHeight;

@@ -1,7 +1,9 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
+    <meta charset="ISO-8859-1">
     <title>CorpChat - WebSocket</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
     <link rel="stylesheet" th:href="@{/css/main.css}" />
 
     <!-- SockJS and STOMP.js libraries -->
@@ -9,24 +11,27 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/stomp.js/2.3.3/stomp.min.js"></script>
 </head>
 <body>
-<div id="chat-container">
-    <div class="chat-header">
-        <div class="user-container">
-            <span id="username" th:utext="${userName}"></span>
-            <a th:href="@{/logout}" class="logout-button">Logout</a>
+
+<!-- Navbar -->
+<nav class="navbar navbar-inverse navbar-fixed-top">
+    <div class="container">
+        <div class="navbar-header">
+            <a class="navbar-brand">CorpChat</a>
         </div>
-        <h3>CorpChat WebSocket</h3>
+        <div class="navbar-right user-container">
+            <span id="username" th:utext="${userName}" style="background-color: #333; color: #fff; padding: 5px 10px; border-radius: 5px;"></span>
+            <a th:href="@{/logout}" class="btn btn-danger logout-button" style="margin-left: 10px;">Logout</a>
+        </div>
     </div>
+</nav>
 
-    <hr/>
-
+<div class="container" id="chat-container">
     <div id="connecting">Connecting...</div>
-    <ul id="messageArea">
-    </ul>
-    <form id="messageForm" name="messageForm">
-        <div class="input-message">
-            <input type="text" id="message" autocomplete="off" placeholder="Type a message..."/>
-            <button type="submit">Send</button>
+    <ul id="messageArea" style="margin-bottom: 60px;"></ul>
+    <form id="messageForm" name="messageForm" style="position: fixed; bottom: 0; width: 100%; background-color: #f8f8f8; padding: 10px; box-shadow: 0 -2px 5px rgba(0,0,0,0.1);">
+        <div class="input-message" style="display: flex;">
+            <input type="text" id="message" autocomplete="off" placeholder="Type a message..." class="form-control" style="flex-grow: 1; margin-right: 10px; font-size: 16px; padding: 10px;" />
+            <button type="submit" class="btn btn-primary" style="padding: 10px 20px; font-size: 16px;">Send</button>
         </div>
     </form>
 </div>
