@@ -1,4 +1,4 @@
-# WebChat
+# LocalWebChat
 A chat implemented for communication on a local network. It is a training project to raise your skills.
 
 Basic functionality: registration, authorization and the ability to exchange text messages over a local network between users.
@@ -14,22 +14,22 @@ Technologies used: Java, PostgreSQL, Spring Framework.
 ### Registration
 At the moment, there are no strict requirements for the stored data.
 
-![[register.gif]]
+![register](https://github.com/user-attachments/assets/70d5c2e6-43a0-4189-aa38-142572f3f7c1)
 
 ### Login
 When logging in, we search for the user by mail and check the password.
 
-![[login.gif]]
+![login](https://github.com/user-attachments/assets/997a29b1-5358-4900-b187-81e4bcb83ab2)
 
 ### Logout
 When logging out, the user is redirected to the login page.
 
-![[logout.gif]]
+![logout](https://github.com/user-attachments/assets/bd080bde-e1ea-4932-a19c-f1cd49c61b2f)
 
 ### Chatting
 Currently, only text messaging is available, adding other formats is not being considered yet. Also, the chat history is not available to new users at the moment.
 
-![[chatting.gif]]
+![chatting](https://github.com/user-attachments/assets/1d392791-f696-4178-8cce-8636f28a6574)
 
 ## Sources
 These tutorials helped me create this project and understand the basis for developing such applications:
