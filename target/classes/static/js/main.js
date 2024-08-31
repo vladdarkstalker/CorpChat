@@ -75,10 +75,10 @@ function onMessageReceived(payload) {
 
     if(message.type === 'JOIN') {
         messageElement.classList.add('event-message');
-        messageElement.textContent = message.sender + ' присоединился!';
+        messageElement.textContent = message.sender + ' joined!';
     } else if (message.type === 'LEAVE') {
         messageElement.classList.add('event-message');
-        messageElement.textContent = message.sender + ' покинул чат!';
+        messageElement.textContent = message.sender + ' left the chat!';
     } else {
         messageElement.classList.add('chat-message');
 
