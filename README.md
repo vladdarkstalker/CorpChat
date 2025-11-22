@@ -1,5 +1,5 @@
 # LocalWebChat
-A chat implemented for communication on a local network. It is a training project to raise your skills.
+A chat implemented for communication on a local network. It is a training project to raise my skills.
 
 Basic functionality: registration, authorization and the ability to exchange text messages over a local network between users.
 
